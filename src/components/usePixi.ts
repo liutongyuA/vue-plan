@@ -202,7 +202,7 @@ const addAlarmPoint = (index:number) =>{
   }
 }
 let resizeData ={
-  scale:'',
+  scale:0,
   x:0,
   y:0
 }
@@ -446,6 +446,7 @@ const planPoint = ({x, y}:any)=>{
   bunny.x = x - (bunny.width / 2)
   bunny.y = y - (bunny.height / 2) 
   container.addChild(bunny)
+  // endPlan() 不能直接写 需要加判断
 }
 const destroy = () => {
   if (app) {
@@ -453,14 +454,18 @@ const destroy = () => {
   }
 };
 const movePlan=()=>{
-  console.log(container.children)
-  container.on('click',(e)=>{
-    console.log('点击',e.currentTarget)
-  })
-  // container.children[0].on('click',(e)=>{
-  //   console.log('点击',e.currentTarget)
+  /*container 绑定事件不能取到点击的图对象，所以考虑在创建图对象时绑定事件*/
+  // container.on('click',(e)=>{
+  //   console.log('点击',e.data.originalEvent.target)
+  //   // e.currentTarget.cursor = "pointer";
+  //   // startPlan()
   //   container.removeChild(e.currentTarget)
+  //   console.log(container,e.currentTarget)
   // })
+  container.children[0].on('click',(e)=>{
+    startPlan()
+    container.removeChild(e.currentTarget)
+  })
 
 }
 return { destroy, scale, move, setLastPosition,drawPoints,addDevicePoint, addAlarmPoint,startPlan,endPlan,movePlan};
