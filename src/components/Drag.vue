@@ -7,7 +7,6 @@
         node-key="id"
         default-expand-all
         @node-drag-start="handleDragStart"
-        @node-click="handleNodeClick"
         draggable
         :allow-drop="allowDrop"
         :allow-drag="allowDrag"

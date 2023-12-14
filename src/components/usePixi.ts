@@ -305,7 +305,7 @@ const getImgSize = (naturalWidth: number, naturalHeigh: number, maxWidth: number
     }
   }
   return { width: width, height: height };
-};
+}
 const scale = async (ratio: number, offsetX: number, offsetY: number) => {
   const element = sprite;
   ratio = ratio < 0 ? 1.1 : 0.9;
@@ -339,13 +339,13 @@ const scale = async (ratio: number, offsetX: number, offsetY: number) => {
 
   // // 布点容器调整
   resizePlanContainer();
-};
+}
 
 let lastPosition: { x: number; y: number } | undefined;
 
 const setLastPosition = (position: { x: number; y: number } | undefined) => {
   lastPosition = position;
-};
+}
 
 const move = (x1: number, y1: number) => {
   if (lastPosition) {
@@ -364,10 +364,10 @@ let movePointer:any
 let cross :any= null; //布点十字线
 let subscript:any = null; //布点十字线下标图
 /**画线相关 */
-let startPoint = null  //鼠标按下开始的位置
-let endPoint = null //鼠标按下开始的位置
-let isDrawing = false
-let graphics :any = null// 线
+// let startPoint = null  //鼠标按下开始的位置
+// let endPoint = null //鼠标按下开始的位置
+// let isDrawing = false
+// let graphics :any = null// 线
 const startPlan = ()=>{
   cross = new PIXI.Graphics().lineStyle({ color: 0xffffff, width: 2 }).moveTo(0, -2000).lineTo(0, 2000).moveTo(-2000, 0).lineTo(2000, 0)
   subscript = PIXI.Sprite.from('../assets/04_Heat Detector.jpg');
@@ -385,38 +385,38 @@ const startPlan = ()=>{
     subscript.position.x = e.data.global.x +10;
     subscript.position.y = e.data.global.y +10;
     app.stage.addChild(subscript);
-    if (!isDrawing) return;
-    endPoint = app.renderer.plugins.interaction.mouse.getLocalPosition(app.stage)
-    app.ticker.add(drawDashLine);
+    // if (!isDrawing) return;
+    // endPoint = app.renderer.plugins.interaction.mouse.getLocalPosition(app.stage)
+    // app.ticker.add(drawDashLine);
   });
   app.stage.on('mouseout', () =>{
       app.stage.removeChild(cross);
       app.stage.removeChild(subscript);
-      if (!isDrawing) return;
-      isDrawing = false;
-      startPoint = null
-      endPoint = null
-      app.ticker.remove(drawDashLine);
-      graphics.clear();
+      // if (!isDrawing) return;
+      // isDrawing = false;
+      // startPoint = null
+      // endPoint = null
+      // app.ticker.remove(drawDashLine);
+      // graphics.clear();
   });
   /**画线相关 */
-  graphics = new PIXI.Graphics();
-  app.stage.addChild(graphics);
-  app.stage.on('mousedown', () =>{
-    startPoint = app.renderer.plugins.interaction.mouse.getLocalPosition(app.stage);
-    console.log('按下',startPoint)
-    isDrawing = true;
-  });
-  app.stage.on('mouseup', () =>{
-    if (!isDrawing) return;
-      isDrawing = false;
-      startPoint = null
-      endPoint = null
-      app.ticker.remove(drawDashLine);
-      // 在这里可以处理线条绘制完成后的逻辑
-      console.log('松开')
-      graphics.clear();
-  });
+  // graphics = new PIXI.Graphics();
+  // app.stage.addChild(graphics);
+  // app.stage.on('mousedown', () =>{
+  //   startPoint = app.renderer.plugins.interaction.mouse.getLocalPosition(app.stage);
+  //   console.log('按下',startPoint)
+  //   isDrawing = true;
+  // });
+  // app.stage.on('mouseup', () =>{
+  //   if (!isDrawing) return;
+  //     isDrawing = false;
+  //     startPoint = null
+  //     endPoint = null
+  //     app.ticker.remove(drawDashLine);
+  //     // 在这里可以处理线条绘制完成后的逻辑
+  //     console.log('松开')
+  //     graphics.clear();
+  // });
 
   //打点
   app.stage.on('click', (e:MouseEvent) =>{
@@ -427,12 +427,12 @@ const startPlan = ()=>{
   })
 
 }
-const drawDashLine = (delta) =>{
-  graphics.clear();
-  graphics.lineStyle(2, 0xffffff, 1, 0.5, true);
-  graphics.moveTo(startPoint.x, startPoint.y);
-  graphics.lineTo(endPoint.x, endPoint.y);
-}
+// const drawDashLine = (delta) =>{
+//   graphics.clear();
+//   graphics.lineStyle(2, 0xffffff, 1, 0.5, true);
+//   graphics.moveTo(startPoint.x, startPoint.y);
+//   graphics.lineTo(endPoint.x, endPoint.y);
+// }
 const endPlan=()=>{
   app.stage.off('mousemove')
   app.stage.off('pointerout')
@@ -448,19 +448,15 @@ const planPoint = ({x, y}:any)=>{
   container.addChild(bunny)
   // endPlan() 不能直接写 需要加判断
 }
-const destroy = () => {
-  if (app) {
-    app.destroy(true);
-  }
-};
+
 const movePlan=()=>{
   /*container 绑定事件不能取到点击的图对象，所以考虑在创建图对象时绑定事件*/
   // container.on('click',(e)=>{
-  //   console.log('点击',e.data.originalEvent.target)
+  //   console.log('点击',e.data.originalEvent)
   //   // e.currentTarget.cursor = "pointer";
-  //   // startPlan()
-  //   container.removeChild(e.currentTarget)
-  //   console.log(container,e.currentTarget)
+  //   // // startPlan()
+  //   // container.removeChild(e.currentTarget)
+  //   // console.log(container,e.currentTarget)
   // })
   container.children[0].on('click',(e)=>{
     startPlan()

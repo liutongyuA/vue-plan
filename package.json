@@ -4,14 +4,20 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "vue-tsc && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
+    "echarts-gl": "^2.0.9",
     "element-plus": "^2.3.14",
+    "jquery": "^3.7.1",
+    "less": "^4.2.0",
     "pixi.js-legacy": "^5.3.12",
-    "vue": "^3.3.4"
+    "simple-keyboard": "^3.7.20",
+    "simple-keyboard-layouts": "^3.3.27",
+    "vue": "^3.3.4",
+    "vue-keyboard-virtual-next": "^1.0.4"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.2.3",
